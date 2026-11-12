@@ -3,7 +3,7 @@
 > Ba lần tìm kiếm thời tiết độc lập được phân phối theo thứ tự là ba lần đi lại. Hãy chạy chúng song song và tổng thời gian sụp đổ đến cuộc gọi đơn giản chậm nhất. Mỗi nhà cung cấp biên giới bây giờ phát ra nhiều cuộc gọi công cụ trong một lượt.
 
 **Type:** Build
-**Languages:** Python (stdlib, thread pool + streaming harness)
+**Languages:** Python, TypeScript (stdlib, thread pool + streaming harness)
 **Prerequisites:** Phase 13 · 02 (function calling deep dive)
 **Time:** ~75 minutes
 
@@ -66,7 +66,7 @@ Mỗi cuộc gọi mà mô hình phát ra đều có một`id`. Mỗi kết qu�
 
 Người chủ chạy trình thực hiện mỗi cuộc gọi trên dây chuyền riêng, coroutine hoặc người làm việc từ xa.`asyncio.gather`hoặc cấu trúc đồng thời. Trật tự hoàn thành là không thể đoán trước  ID là nhận dạng.
 
-Một lỗi phổ biến: trả lời với kết quả theo thứ tự danh sách gọi thay vì thứ tự hoàn thành.`tool_call_id`, nhưng nếu kết quả bị bỏ rơi hoặc sao chép, việc gửi ngoài trật tự sẽ làm cho việc gỡ lỗi khó khăn hơn.
+Một lỗi phổ biến: trả lời với kết quả theo thứ tự danh sách gọi thay vì thứ tự hoàn thành.`tool_call_id`, nhưng nếu kết quả bị bỏ rơi hoặc sao chép, một danh sách trả lời được sắp xếp lại khỏi thứ tự kết quả đã đến làm cho khoảng cách khó tìm thấy trong nhật ký.
 
 ### Các cuộc gọi của công cụ streaming
 
@@ -158,7 +158,7 @@ Bài học này sẽ mang lại kết quả `outputs/skill-parallel-call-safety-
 ## Đọc thêm
 
 - [OpenAI — Parallel function calling](https://platform.openai.com/docs/guides/function-calling#parallel-function-calling) Hành vi mặc định và cờ không chọn
-- [Anthropic — Tool use: implementing tool use](https://docs.anthropic.com/en/docs/agents-and-tools/tool-use/implementing-tool-use) `disable_parallel_tool_use`và kết quả đợt
+- [Anthropic — Parallel tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/parallel-tool-use) `disable_parallel_tool_use`và kết quả đợt
 - [Google — Gemini function calling parallel section](https://ai.google.dev/gemini-api/docs/function-calling) Các cuộc gọi song song liên quan đến ID từ Gemini 3
 - [OpenAI — Streaming responses with tools](https://platform.openai.com/docs/api-reference/responses-streaming) Phục bộ lập luận lại cho các dòng OpenAI
 - [Anthropic — Streaming messages](https://docs.anthropic.com/en/api/messages-streaming) `content_block_delta`với `input_json_delta`

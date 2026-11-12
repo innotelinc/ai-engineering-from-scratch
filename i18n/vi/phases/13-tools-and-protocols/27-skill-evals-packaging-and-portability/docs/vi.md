@@ -3,7 +3,7 @@
 > Một kỹ năng được hoàn thành khi gói của nó tồn tại, hướng theo yêu cầu đúng, cải thiện một nhiệm vụ được đo lường, giữ trong chính sách, và xuống cấp trung thực trên một chủ nhà khác.
 
 **Type:** Build
-**Languages:** Python (stdlib)
+**Languages:** Python (stdlib), TypeScript
 **Prerequisites:** Phase 13 · 22, 24, 25, and 26
 **Time:** ~150 minutes
 
@@ -137,10 +137,12 @@ Chia các trường hợp thành các tập hợp phát triển và xác nhận.
 
 Đối với việc gọi nhị phân:
 
-```text
-precision = true_positives / (true_positives + false_positives)
-recall = true_positives / (true_positives + false_negatives)
-f1 = 2 * precision * recall / (precision + recall)
+```math
+\begin{aligned}
+\text{precision} &= \frac{\text{true\_positives}}{\text{true\_positives} + \text{false\_positives}} \\[4pt]
+\text{recall} &= \frac{\text{true\_positives}}{\text{true\_positives} + \text{false\_negatives}} \\[4pt]
+\text{f1} &= \frac{2 \cdot \text{precision} \cdot \text{recall}}{\text{precision} + \text{recall}}
+\end{aligned}
 ```
 
 Báo cáo số liệu thô với tỷ lệ. 10 trong 10 và 100 trong 100 đều là 100% nhưng cung cấp bằng chứng khác nhau.
@@ -423,6 +425,7 @@ Nó cho thấy:
 cd "$(git rev-parse --show-toplevel)"
 cd phases/13-tools-and-protocols/27-skill-evals-packaging-and-portability
 python3 code/main.py
+npx tsx code/main.ts
 python3 -m unittest discover -s code/tests -v
 ```
 
