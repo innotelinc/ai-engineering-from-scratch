@@ -3,7 +3,7 @@
 > Tahmin edici çözme, hızlı bir taslak modeli hedefli modelle eşleştirir. Özet K tokenleri önerir; hedef tek bir ilerileme ile doğrulanır; kabul edilen tokenler ücretsizdir. 2026 yılında EAGLE-3 üretim derecesi varyasyonudur. Genel sohbette kabul oranı alfa'yı 0.6-0.8 bantına itip, ham toponlar yerine hedef modelin gizli durumlarında bir taslak başını eğitir. Doğru soru "Taplama ne kadar hızlı" değil "Trafikimde alfa nedir?" Eğer alfa ~ 0.55'in altına düşerse, spekülatör çözme yüksek eşzamanlılıkta net negatif olur çünkü reddedilen her taslama ikinci hedef ileri geçiş maliyetini öder. Bu ders önce alfa ölçmeyi ve ikinci olarak bayrağı çevirmeyi öğretir.
 
 **Type:** Learn
-**Languages:** Python (stdlib, toy acceptance-rate simulator)
+**Languages:** Python, TypeScript (stdlib, toy acceptance-rate simulator)
 **Prerequisites:** Phase 17 · 04 (Serving Engine Internals), Phase 10 · 18 (Multi-Token Prediction)
 **Time:** ~60 minutes
 
@@ -16,7 +16,7 @@
 
 ## Sorun
 
-Dekode hafıza bağlıdır. Llama 3.3 70B FP8 çalışan bir H100'de, her dekode edilmiş token ~ 140 GB / s ağırlık okuyor ve bir token yayar. GPU hesaplama dekode sırasında neredeyse boştur.
+H100'de Llama 3.3 70B FP8 çalıştırılan bir H100'de, her dekode adımı HBM'den tüm ~70 GB ağırlıkları okur ve her diziye bir token gönderir. GPU hesaplama dekode sırasında neredeyse boştur.
 
 Speküel dekodlama boşluğu kullanır. K aday tokenlerini ucuz bir taslak modeli ile oluşturun, sonra hedef modelden tüm K'yi tek bir ileri geçitle doğrulamalarını isteyin. Her doğrulanmış token etkin olarak ücretsizdir (hedef her şekilde yapmalıydı).
 
@@ -34,7 +34,7 @@ Spec kodlaması olmadan, bir token maliyeti bir hedef ileri.`1 + K * alpha`Hızl
 
 reddedilen tokenler kaybolmaz  ilk reddedilen token için ikinci bir hedef zorlar. Alfa'nın 0.4'e düştüğü bir iş yükünde, çekim ödemesi artı doğrulama artı yeniden çalıştırma ödenir. Yüksek eşzamanlılık (deyelim 256 eşzamanlı), dekodlama parti zaten "tek hedef" ve "target verify" arasındaki hafıza-bandwidth boşluğu küçülmeye yeterlidir. 2026 donanımlarının çoğunda alfa 0.55'in altında, spesifikasyon çözümü net negatif.
 
-Alpha iş yüküne göre değişir. ShareGPT tarzındaki genel sohbette, ShareGPT'de eğitilmiş EAGLE-3 0.6-0.8'e ulaşır. Alan-özel trafiğe (kod, tıbbi, yasal) genel veri üzerine eğitilmiş taslak başı 0.4-0.6'a düşer.
+Alfa iş yüküne göre değişir. ShareGPT tarzındaki genel sohbette, ShareGPT'de eğitilmiş EAGLE-3 0.6-0.8'e ulaştı. Alan-specifik trafik (kod, tıbbi, hukuki) genel veri eğitimi alanı başkanının sayısı 0.4-0.6'a düşüyor. Alan-specifik bir taslak başını eğitmek, hedef inceleme ile karşılaştırıldığında hafif ve hızlı bir eğitim işidir. 7 · 16 ve 10 · 15 aşamaları daha yüksek değerlere (0,85 ve üstü) değerdir. Bu, çekimdeki eğitim verilerine uyan sohbet referansları için bir token oranları. Bu sayfadaki bantlarla plan yapın ve Alpha'yı kendi trafiğinizle ölçün.
 
 ### KİÇİN nesilleri bir bakışta
 
@@ -57,7 +57,7 @@ P99'un ayarlanmaması durumunda daha da kötü olabilir. reddedilen taslaklar ik
 
 ### EAGLE-3'ün zaten kullanıldığı yerler
 
-Google 2025 yılında AI Özetlerinde spekülatör çözümü (aynı kalite, daha hızlı yanıt) yerleştirdi. vLLM V1 gemileri `speculative_config`V1'de N-gram GPU spekülatif çözümü, parçalanmış prefill ile uyumlu olan bir variandır. SGLang, prefix ağır iş yükleri için önerilirken EAGLE-3'yi önerilen taslak yolu olarak destekler.
+Google 2025 yılında AI Özetlerinde spekülatör çözümü (aynı kalite, daha hızlı yanıt) yerleştirdi. vLLM V1 gemileri `speculative_config`SGLang, önleme ağır iş yükleri için önerilen taslak yolu olarak EAGLE-3'i destekler.
 
 ### Bir satırdaki matematikleri düzeltmek
 
@@ -68,7 +68,7 @@ Beklenen hızlandırma: `S(alpha, K) = (1 + K*alpha) / (1 + verify_overhead)`- Y
 - Batch-1 offline jenerasyonu, gecikme önemi olmayan.
 - Çok kısa çıkışlar (50 token altında) Draft overhead ve verification cost baskın.
 - Özel alanlar, alan eğitimi olmayan bir başlık.
-- vLLM v0.18.0 ve taslak model özellikleri çözme ve `--enable-chunked-prefill`Bu kombinasyon birleştirilmez. Belli bir istisna V1'deki N-gram GPU spesifikasyonunu çözme.
+- Her özellik çiftinin oluştuğunu varsayarak. Versiyonunuz için vLLM uyumluluk matrisini kontrol edin: v0.18.0 parçacık prefill ile uyumlu spekülasyonlu çözümü işaretler.
 
 ```figure
 mx-speculative-tree
@@ -86,7 +86,7 @@ Bu ders bize çok yararlı .`outputs/skill-eagle3-rollout.md`. Hedef model, traf
 
 1. Çık .`code/main.py`K=5'te 2x hızlandırmak için hangi alfa'ya ihtiyacınız var? 3x hızlandırmak için?
 2. Üretim trafiğinin %70 genel sohbet, %30 kod bölüştüğünü düşünün. Genel sohbet, ShareGPT'de eğitilmiş EAGLE-3 ile alfa 0.7'e ulaşır; kod alfa 0.4'e ulaşır.
-3. VLLM oku `speculative_config`Dokümanlama. Üç modun (önerge modeli, EAGLE, N-gram) ve hangi bir mod parçalanmış prefill ile uyumlu olduğunu belirtin.
+3. VLLM oku `speculative_config`Doküman. Üç modun (Müzikli model, EAGLE, N-gram) adını verin ve vLLM versiyonunuzda her birinin hangi özellikleri oluşturduğunu kontrol edin.
 4. EAGLE-3'i etkinleştirdikten sonra ortalama ITL'de %25 düşüş görüyorsunuz ama P99 ITL'de %15 artış var.
 5. Llama 3.3 70B için EAGLE-3 çekim başlığının hafıza maliyetini hesaplayın.
 
