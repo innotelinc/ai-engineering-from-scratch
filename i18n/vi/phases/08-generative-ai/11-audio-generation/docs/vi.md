@@ -3,7 +3,7 @@
 > Âm thanh là tín hiệu 1-D ở 16-48 kHz. Một clip năm giây là 80-240k mẫu. Không một biến thể nào trực tiếp tham gia vào chuỗi đó. Giải pháp cho mọi mô hình âm thanh sản xuất vào năm 2026 là giống nhau: một codec thần kinh (Encodec, SoundStream, DAC) nén âm thanh thành các token riêng biệt ở 50-75 Hz, và một mô hình biến thể hoặc phân tán tạo ra các token.
 
 **Type:** Build
-**Languages:** Python
+**Languages:** Python, TypeScript
 **Prerequisites:** Phase 6 · 02 (Audio Features), Phase 6 · 04 (ASR), Phase 8 · 06 (DDPM)
 **Time:** ~45 minutes
 
@@ -145,4 +145,4 @@ Nếu sản phẩm là "tác động thoại trực tiếp" hoặc "chuyển ti�
 - [Wang et al. (2023). Neural Codec Language Models are Zero-Shot Text to Speech Synthesizers (VALL-E)](https://arxiv.org/abs/2301.02111) VALL-E.
 - [Copet et al. (2023). Simple and Controllable Music Generation (MusicGen)](https://arxiv.org/abs/2306.05284) MusicGen.
 - [Liu et al. (2023). AudioLDM 2: Learning Holistic Audio Generation with Self-supervised Pretraining](https://arxiv.org/abs/2308.05734) AudioLDM 2.
-- [Stability AI (2024). Stable Audio 2.5](https://stability.ai/news/introducing-stable-audio-2-5) 2025 text-to-music với dòng chảy phù hợp.
+- [Stability AI (2025). Stable Audio 2.5](https://stability.ai/news-updates/stability-ai-introduces-stable-audio-25-the-first-audio-model-built-for-enterprise-sound-production-at-scale) 2025 text-to-music với dòng chảy phù hợp.
