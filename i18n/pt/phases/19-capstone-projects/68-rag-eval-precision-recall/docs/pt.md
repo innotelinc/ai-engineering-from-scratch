@@ -3,7 +3,7 @@
 > Se não conseguir classificar a sua recuperação e a sua resposta ao mesmo tempo, não pode enviar o sistema.
 
 **Type:** Build
-**Languages:** Python
+**Languages:** Python, TypeScript
 **Prerequisites:** Phase 11 lessons 06 (RAG), 10 (evaluation); Phase 19 Track B foundations (lessons 20-29); Phase 19 lessons 64, 65, 66, 67
 **Time:** ~90 minutes
 
@@ -121,6 +121,7 @@ ci-rag-metric-ladder
 
 ```bash
 python3 code/main.py
+npx tsx code/main.ts
 ```
 
 A saída mostra precisão@k, recall@k, MRR, nDCG@k, fidelidade e relevância de resposta para cada variante em uma única tabela de métricas. A linha de recuperação híbrida supera a linha de base do chunker em recall; a linha de rerank supera a híbrida em MRR.
@@ -182,7 +183,7 @@ Lição 69 conecta todo o pipeline (cunker, retriever, reranker, gerador) e exec
 - Buckley, Voorhees, "Evaluating Evaluation Measure Stability", SIGIR 2000 - o artigo canônico sobre métricas de classificação
 - Jarvelin, Kekalainen, "Avaliação acumulada de técnicas de IR com base em ganhos" - o artigo nDCG
 - [Ragas: Automated Evaluation of RAG Pipelines](https://docs.ragas.io)
-- [Anthropic, Evaluating RAG](https://www.anthropic.com/news/evaluating-rag)
+- [Anthropic, Introducing Contextual Retrieval](https://www.anthropic.com/engineering/contextual-retrieval)- pontuação de recuperação com 1 menos recall@20
 - Fase 11 lição 10 - Fundamentos do quadro de avaliação
 - Lições da fase 19 64-67 - componentes avaliados aqui
 - Fase 19 lição 69 - o pipeline de ponta a ponta esta avaliação notas
