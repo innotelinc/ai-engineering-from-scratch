@@ -3,7 +3,7 @@
 > Khanmigo (Khan Akademisi), Duolingo Max, Google LearnLM / Gemini for Education, Quizlet Q-Chat ve Synthesis Tutor hepsi 2026'da ölçekte adapte multimodal öğretim gönderiyor. Ortak şekil, Sokratik bir politika (sadece cevabı atmayın), her etkileşimden sonra güncellenen bir öğrenci modeli (Bayesian bilgi izleme tarzı), ses + metin + foto-riyaziyet girişleri, kurikulum grafiği geri alımı, aralı tekrar programlaması ve yaşa uygun içerik için sert güvenlik filtreleri. Başlık, konu-özel bir öğretmen göndermek (K-12 cebir veya giriş Python), 10 öğrenciyle iki haftalık bir etkinlik çalışması yürütmek ve içerik güvenliği denetimini geçmek.
 
 **Type:** Capstone
-**Languages:** Python (backend, learner model), TypeScript (web app), SQL (curriculum graph via Postgres + Neo4j)
+**Languages:** Python (backend, learner model), TypeScript (web app, learner model scaffold), SQL (curriculum graph via Postgres + Neo4j)
 **Prerequisites:** Phase 5 (NLP), Phase 6 (speech), Phase 11 (LLM engineering), Phase 12 (multimodal), Phase 14 (agents), Phase 17 (infrastructure), Phase 18 (safety)
 **Phases exercised:**P5 · P6 · P11 · P12 · P14 · P17 · P18
 **Time:** 30 hours
@@ -151,7 +151,7 @@ learner: "6"
 
 - [Khanmigo (Khan Academy)](https://www.khanmigo.ai) İpucu tüketicisi K-12 öğretmeni
 - [Duolingo Max](https://blog.duolingo.com/duolingo-max/) İdeal dil öğrenme öğretmeni
-- [Google LearnLM / Gemini for Education](https://blog.google/technology/google-deepmind/learnlm) barındırılmış referans modeli
+- [Google LearnLM / Gemini for Education](https://blog.google/products-and-platforms/products/education/google-learnlm-gemini-generative-ai/) barındırılmış referans modeli
 - [Quizlet Q-Chat](https://quizlet.com) Değişkin referans
 - [Synthesis Tutor](https://www.synthesis.com) Başlangıç referansı
 - [FSRS algorithm](https://github.com/open-spaced-repetition/fsrs4anki) Aralıklı tekrar programı
