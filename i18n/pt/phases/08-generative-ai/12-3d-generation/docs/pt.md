@@ -3,7 +3,7 @@
 > A 3D é a modalidade em que a alavancagem 2D-to-3D é mais forte. O avanço de 2023 foi 3D Gaussian Splating. A 2024-2026 gerativa empurra camadas de difusão multi-visão + reconstrução 3D em cima para produzir objetos e cenas a partir de um único prompt ou foto.
 
 **Type:** Learn
-**Languages:** Python
+**Languages:** Python, TypeScript
 **Prerequisites:** Phase 4 (Vision), Phase 8 · 07 (Latent Diffusion)
 **Time:** ~45 minutes
 
@@ -164,4 +164,4 @@ Para a maioria dos produtos de 2026, a resposta correta é "exercer um modelo de
 - [Shi et al. (2023). MVDream](https://arxiv.org/abs/2308.16512) Difusão de visualização múltipla.
 - [Hong et al. (2023). LRM: Large Reconstruction Model for Single Image to 3D](https://arxiv.org/abs/2311.04400) LRM.
 - [Gao et al. (2024). CAT3D: Create Anything in 3D with Multi-View Diffusion Models](https://arxiv.org/abs/2405.10314)- CAT3D.
-- [Stability AI (2024). Stable Video 3D (SV3D)](https://stability.ai/research/sv3d)- SV3D.
+- [Stability AI (2024). Stable Video 3D (SV3D)](https://stability.ai/research/sv3d-novel-multi-view-synthesis-and-3d-generation-from-a-single-image-using-latent-video-diffusion)- SV3D.

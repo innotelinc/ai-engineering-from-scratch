@@ -3,7 +3,7 @@
 > O áudio é um sinal 1-D em 16-48 kHz. Um clip de cinco segundos é 80-240k amostras. Nenhum transformador atende a essa sequência diretamente. A solução para todos os modelos de áudio de produção em 2026 é a mesma: um codec neural (Encodec, SoundStream, DAC) comprime áudio para tokens discretos em 50-75 Hz, e um transformador ou modelo de difusão gera tokens.
 
 **Type:** Build
-**Languages:** Python
+**Languages:** Python, TypeScript
 **Prerequisites:** Phase 6 · 02 (Audio Features), Phase 6 · 04 (ASR), Phase 8 · 06 (DDPM)
 **Time:** ~45 minutes
 
@@ -145,4 +145,4 @@ Se o produto for "chat de voz ao vivo" ou "continuidade de música em tempo real
 - [Wang et al. (2023). Neural Codec Language Models are Zero-Shot Text to Speech Synthesizers (VALL-E)](https://arxiv.org/abs/2301.02111)- VALL-E.
 - [Copet et al. (2023). Simple and Controllable Music Generation (MusicGen)](https://arxiv.org/abs/2306.05284) MusicGen.
 - [Liu et al. (2023). AudioLDM 2: Learning Holistic Audio Generation with Self-supervised Pretraining](https://arxiv.org/abs/2308.05734) AudioLDM 2.
-- [Stability AI (2024). Stable Audio 2.5](https://stability.ai/news/introducing-stable-audio-2-5) 2025 texto-música com fluxo de correspondência.
+- [Stability AI (2025). Stable Audio 2.5](https://stability.ai/news-updates/stability-ai-introduces-stable-audio-25-the-first-audio-model-built-for-enterprise-sound-production-at-scale) 2025 texto-música com fluxo de correspondência.
