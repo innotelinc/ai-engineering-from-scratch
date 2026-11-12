@@ -3,7 +3,7 @@
 > A descodificação especulativa combina um modelo de projeto rápido com o modelo alvo. O projecto propõe tokens K; o alvo verifica-se em um único prazo; tokens aceitos são gratuitos. Em 2026, o EAGLE-3 é a variante de nível de produção  ele treina um projeto de cabeça nos estados ocultos do modelo alvo em vez de em tokens brutos, empurrando a taxa de aceitação alfa para a faixa de 0,6-0,8 no bate-papo geral. A pergunta certa não é "quão rápido é o projeto", mas "o que é o alfa no meu tráfego?" Se o alfa cair abaixo de ~0.55, a descodificação especulativa é negativa líquida em alta concurência porque cada projeto rejeitado custa uma segunda passagem de destino para a frente. Esta lição ensina-te a medir o alfa primeiro e a virar a bandeira em segundo lugar.
 
 **Type:** Learn
-**Languages:** Python (stdlib, toy acceptance-rate simulator)
+**Languages:** Python, TypeScript (stdlib, toy acceptance-rate simulator)
 **Prerequisites:** Phase 17 · 04 (Serving Engine Internals), Phase 10 · 18 (Multi-Token Prediction)
 **Time:** ~60 minutes
 
@@ -16,7 +16,7 @@
 
 ## O problema
 
-O decodificador é limitado à memória. Em um H100 executando Llama 3.3 70B FP8, cada token decodificado lê ~ 140 GB / s de pesos e emite um token. O computador da GPU é quase ocioso durante o decodificação.
+O decodificador é ligado à memória. Em um H100 executando Llama 3.3 70B FP8, cada passo de decodificação lê todos os ~ 70 GB de pesos do HBM e emite um token por sequência. O computador da GPU é quase ocioso durante o decodificação.
 
 A descodificação especulativa explora a lacuna. Gerencie tokens candidatos K com um modelo de projeto barato, em seguida, peça ao modelo alvo para verificar todos os K em uma única passagem para a frente. Cada token verificado é efetivamente livre (amortizado em um lote de K para a frente o alvo teria que fazer de qualquer maneira).
 
@@ -34,7 +34,7 @@ Sem descodificação de especificações, o custo por token é um objetivo avan�
 
 Os tokens rejeitados não desaparecem  eles forçam um segundo alvo para a primeira token rejeitada. Em uma carga de trabalho onde o alfa cai para 0,4, pagas despesas gerais de projeto mais verificação mais re-roll. Em alta simultânea (digamos 256 simultâneos), o lote de decodificação já é grande o suficiente para que a diferença de largura de banda de memória entre "alvo sozinho" e "alvo com verificação" diminua. Abaixo do alfa 0,55 na maioria dos hardware de 2026, o código de especificações é negativo.
 
-O programa de treinamento de um projeto de trabalho em um grupo de dados de um grupo de trabalho, que é um grupo de treinamento de um grupo de trabalho, é um projeto de treinamento de um grupo de trabalho.
+O Alpha varia de acordo com a carga de trabalho. No chat geral de estilo ShareGPT, a EAGLE-3 treinada no ShareGPT atinge 0,6-0,8. No que diz respeito ao tráfego específico de domínio (código, médico, legal), o projeto de direcção formado em dados gerais cai para 0,4-0,6. Treinar um projeto específico de domínio cabeçalhos recupera alfa  é um trabalho de treinamento leve e rápido em comparação com o objetivo de finalização. As fases 7 · 16 e 10 · 15 apresentam valores mais elevados (0,85 e superior). São taxas por token em parâmetros de chat que correspondem aos dados de treinamento do projecto. Planeje com as bandas desta página e mede o alpha pelo seu próprio tráfego.
 
 ### GERAÇÕES de águia num olhar
 
@@ -57,7 +57,7 @@ O P99 pode piorar se você não sintonizar. Os projetos rejeitados desencadeiam 
 
 ### Se o EAGLE-3 já estiver implantado
 
-O Google implementou a descodificação especulativa em AI Overviews em 2025 (a mesma qualidade, resposta mais rápida).`speculative_config`como a interface documentada; a descodificação especulativa da GPU de N-gram em V1 é a variante compatível com preenchimento em pedaços. SGLang suporta EAGLE-3 como o caminho de projeto recomendado para cargas de trabalho pesadas de prefixos.
+O Google implementou a descodificação especulativa em AI Overviews em 2025 (a mesma qualidade, resposta mais rápida).`speculative_config`A SGLang suporta a EAGLE-3 como o caminho de projeto recomendado para cargas de trabalho pesadas de prefixos.
 
 ### - Matemática de equilíbrio numa linha.
 
@@ -68,7 +68,7 @@ A aceleração prevista: `S(alpha, K) = (1 + K*alpha) / (1 + verify_overhead)`- 
 - Geração offline de lote 1, onde a latência não importa.
 - Os resultados são muito curtos (menos de 50 tokens).
 - Domínios especializados sem um chefe de recrutamento treinado.
-- vLLM v0.18.0 + código de especificações do modelo de projeto + `--enable-chunked-prefill`Esta combinação não compila. A exceção documentada é o N-gram GPU especificação decodificação em V1.
+- Assumindo que cada par de recursos compõe. Verifique a matriz de compatibilidade vLLM para a sua versão: v0.18.0 marca a descodificação especulativa compatível com preenchimento em pedaços.
 
 ```figure
 mx-speculative-tree
@@ -86,7 +86,7 @@ Esta lição produz`outputs/skill-eagle3-rollout.md`. Tendo em conta um modelo-a
 
 1. Corra .`code/main.py`Em K=5, qual alfa você precisa para um 2x aceleração? para um 3x aceleração?
 2. Imagine que o tráfego de produção divide 70% de chat geral, 30% de código. Chat geral atinge alfa 0,7 com EAGLE-3 treinado no ShareGPT; código atinge alfa 0,4. O que é alfa misturado e o código de especificação é net-positivo?
-3. Leia o VLLM `speculative_config`A documentação: nomear os três modos (modelo de projeto, EAGLE, N-gram) e qual é compatível com preenchimento em pedaços.
+3. Leia o VLLM `speculative_config`A documentação. Nomear os três modos (modelo de rascunho, EAGLE, N-gram) e verificar quais são as características de cada um composto em sua versão vLLM.
 4. Veja a baixa média do ITL de 25% depois de habilitar a EAGLE-3, mas o P99 ITL subiu 15%.
 5. Calcule o custo de memória da cabeça de projeto EAGLE-3 para Llama 3.3 70B. Como se compara a executar Llama 3.2 1B como um projeto clássico?
 

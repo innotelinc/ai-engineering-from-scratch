@@ -3,7 +3,7 @@
 > Trate o cache KV como um recurso reutilizável de primeira classe armazenado em uma árvore de radix e muda a programação com ele: em vez de FCFS (primeiro-chegado, primeiro servido) como agendas vLLM, um cronista consciente do cache priorizará solicitações com prefixos compartilhados mais longos  efetivamente uma profundidade-primeira travessia de radix para que os ramos quentes permaneçam residentes no HBM. O SGLang é o motor que construiu a ideia. No Llama 3.1 8B com as instruções de 1K parecidas com o ShareGPT, o SGLang chega a ~ 16.200 tok/s para ~ 12.500 do vLLM, uma vantagem de ~ 29%. Nas cargas de trabalho RAG de prefixo pesado, a vantagem atinge 6,4x. Nas cargas de trabalho em forma de clonagem de voz, a taxa de acessos no cache foi limpa em 86%. Implementado em mais de 400.000 GPUs em 2026 em xAI, LinkedIn, Cursor, Oracle, GCP, Azure, AWS. O problema é que o número 6.4x evapora quando o prefixo de ordem é inconsistente.
 
 **Type:** Learn
-**Languages:** Python (stdlib, toy radix-tree cache + cache-aware scheduler)
+**Languages:** Python, TypeScript (stdlib, toy radix-tree cache + cache-aware scheduler)
 **Prerequisites:** Phase 17 · 04 (Serving Engine Internals), Phase 14 (Agentic RAG)
 **Time:** ~75 minutes
 
@@ -94,6 +94,8 @@ roofline
 
 `code/main.py`Implementa um cache KV de brinquedo radix-tree mais um cronógrafo com duas políticas: FCFS e cache-consciente. Executa a mesma carga de trabalho através de ambos, relata taxa de acidente de prefixo-cache e delta de throughput.
 
+O [Inside an LLM Serving GPU](https://aiengineeringfromscratch.com/inside-an-llm-serving-gpu?workload=shared&shared=4096)A máquina mostra o cache de radix em uma execução real L4. quatro grupos cada um têm seu próprio prompt de sistema de tokens 4.096. A primeira solicitação de um grupo calcula seu prompt. Enquanto esse prompt permanece no cache, solicitações posteriores do grupo computam apenas a pergunta de 128 tokens. Desligue o cache de radix para ver a média do primeiro token ir de 479 ms para 14.706 ms.
+
 ## Envia-o
 
 Esta lição produz`outputs/skill-radix-scheduler-advisor.md`. Dada uma descrição da carga de trabalho (forma do modelo de solicitação, padrão de recuperação, número de inquilinos simultâneos), produz uma prescrição de solicitação de solicitação e uma indicação de saída para a adopção do SGLang.
@@ -125,4 +127,4 @@ Esta lição produz`outputs/skill-radix-scheduler-advisor.md`. Dada uma descriç
 - [SGLang documentation](https://sgl-project.github.io/) RadixAttenção e detalhes de programação.
 - [SGLang paper — Efficiently Programming Large Language Models (arXiv:2312.07104)](https://arxiv.org/abs/2312.07104) a referência do projecto.
 - [LMSYS blog — SGLang with RadixAttention](https://www.lmsys.org/blog/2024-01-17-sglang/) Números de referência e raciocínio do agendador.
-- [vLLM — Prefix Caching](https://docs.vllm.ai/en/latest/features/prefix_caching.html) A própria implementação radix-like do vLLM, para comparação.
+- [vLLM — Prefix Caching](https://docs.vllm.ai/en/latest/features/automatic_prefix_caching/) A própria implementação radix-like do vLLM, para comparação.
