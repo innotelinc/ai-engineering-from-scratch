@@ -3,7 +3,7 @@
 > Una especificación útil fija invariantes y pruebas dejando abiertas opciones de implementación reversibles. Es un límite de decisión, no un guión.
 
 **Type:** Learn + Build
-**Languages:** Python (stdlib)
+**Languages:** Python (stdlib), TypeScript
 **Prerequisites:** Phase 14 lesson 50
 **Time:** ~75 minutes
 
@@ -74,6 +74,7 @@ El laboratorio valida cada superficie del contrato, verifica los modos de decisi
 
 ```bash
 python3 code/main.py
+npx tsx code/main.ts
 python3 -m unittest discover code/tests -v
 ```
 
@@ -90,7 +91,7 @@ Mover la decisión de escribir la producción de bloqueado a delegado. Explicar 
 ## Leer más
 
 - [Nuseibeh and Easterbrook, Requirements Engineering: A Roadmap](https://www.cs.toronto.edu/~sme/papers/2000/ICSE2000.pdf), para la relación entre objetivos, especificaciones precisas, validación, acuerdo y evolución.
-- [Zave and Jackson, Four Dark Corners of Requirements Engineering](https://doi.org/10.1145/267895.267896), para la separación de supuestos, requisitos y especificaciones ambientales.
+- [Zave and Jackson, Four Dark Corners of Requirements Engineering](https://doi.org/10.1145/237432.237434), para la separación de supuestos, requisitos y especificaciones ambientales.
 - [Gotel and Finkelstein, An Analysis of the Requirements Traceability Problem](https://doi.org/10.1109/ICRE.1994.292398), para preservar por qué existe un requisito y de dónde proviene.
 
 ## Lo que guardas
