@@ -3,7 +3,7 @@
 > Nếu bạn không thể đánh giá tìm kiếm của bạn và câu trả lời của bạn cùng một lúc, bạn không thể vận chuyển hệ thống. Hai không phải là metric giống nhau và cùng một lời nhắc thất bại trên các trục khác nhau.
 
 **Type:** Build
-**Languages:** Python
+**Languages:** Python, TypeScript
 **Prerequisites:** Phase 11 lessons 06 (RAG), 10 (evaluation); Phase 19 Track B foundations (lessons 20-29); Phase 19 lessons 64, 65, 66, 67
 **Time:** ~90 minutes
 
@@ -121,6 +121,7 @@ ci-rag-metric-ladder
 
 ```bash
 python3 code/main.py
+npx tsx code/main.ts
 ```
 
 Kết quả xuất hiện cho thấy độ chính xác@k, recall@k, MRR, nDCG@k, độ trung thành và liên quan đến câu trả lời cho mỗi biến thể trong một bảng chỉ số duy nhất. Dòng lấy lại lai mầm vượt qua đường cơ sở chunker khi gọi lại; dòng xếp hạng lại vượt qua lai mầm trên MRR.
@@ -182,7 +183,7 @@ Bài học 69 dây toàn bộ đường ống (chunker, retriever, rerenker, má
 - Buckley, Voorhees, "Evaluating Evaluation Measure Stability", SIGIR 2000 - bài báo kinh điển về các chỉ số xếp hạng
 - Jarvelin, Kekalainen, "Học tích về lợi nhuận dựa trên đánh giá các kỹ thuật IR" - bài báo của nDCG
 - [Ragas: Automated Evaluation of RAG Pipelines](https://docs.ragas.io)
-- [Anthropic, Evaluating RAG](https://www.anthropic.com/news/evaluating-rag)
+- [Anthropic, Introducing Contextual Retrieval](https://www.anthropic.com/engineering/contextual-retrieval)- điểm lấy lại với 1 trừ recall@20
 - Giai đoạn 11 Bài học 10 - Cơ sở khung đánh giá
 - Các bài học giai đoạn 19 64-67 - các thành phần được đánh giá ở đây
 - Giai đoạn 19 bài học 69 - đường ống kết thúc kết thúc đánh giá này điểm
