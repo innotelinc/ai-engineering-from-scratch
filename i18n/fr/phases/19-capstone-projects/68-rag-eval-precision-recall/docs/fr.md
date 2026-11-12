@@ -3,7 +3,7 @@
 > Si vous ne pouvez pas classer votre récupération et votre réponse en même temps, vous ne pouvez pas expédier le système. Les deux ne sont pas la même métrique et la même requête échoue sur différents axes.
 
 **Type:** Build
-**Languages:** Python
+**Languages:** Python, TypeScript
 **Prerequisites:** Phase 11 lessons 06 (RAG), 10 (evaluation); Phase 19 Track B foundations (lessons 20-29); Phase 19 lessons 64, 65, 66, 67
 **Time:** ~90 minutes
 
@@ -121,6 +121,7 @@ ci-rag-metric-ladder
 
 ```bash
 python3 code/main.py
+npx tsx code/main.ts
 ```
 
 La sortie montre la précision@k, recall@k, MRR, nDCG@k, la fidélité et la pertinence de la réponse pour chaque variante dans une seule table de métriques.
@@ -182,7 +183,7 @@ Leçon 69 câble l'ensemble du pipeline (chunker, retriever, reranker, générat
 - Buckley, Voorhees, "Evaluation de la stabilité des mesures d'évaluation", SIGIR 2000 - le document canonique sur les mesures de classement
 - Jarvelin, Kekalainen, "Évaluation cumulée des techniques IR basée sur les gains" - le document nDCG
 - [Ragas: Automated Evaluation of RAG Pipelines](https://docs.ragas.io)
-- [Anthropic, Evaluating RAG](https://www.anthropic.com/news/evaluating-rag)
+- [Anthropic, Introducing Contextual Retrieval](https://www.anthropic.com/engineering/contextual-retrieval)- score de récupération avec 1 moins rappel@20
 - L'étape 11 leçon 10 - Fondations du cadre d'évaluation
 - Les leçons de phase 19 64-67 - composants évalués ici
 - L'étude de phase 19 - le pipeline de bout en bout de ces notes d'évaluation
