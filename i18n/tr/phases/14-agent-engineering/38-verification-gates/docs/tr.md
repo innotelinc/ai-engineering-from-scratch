@@ -3,7 +3,7 @@
 > Ajan kendi işini tamamlanmış olarak işaretlemeye başlamaz. Bir doğrulama kapısı kapsam sözleşmesini, geri bildirim günlüğünü, kural raporunu ve farkı okuyor ve tek bir soruya cevap veriyor: Bu görev gerçekten tamamlandı mı? Kapı hayır diyorsa, görev tamamlanmamıştır, sohbet ne derse olsun.
 
 **Type:** Build
-**Languages:** Python (stdlib)
+**Languages:** Python (stdlib), TypeScript
 **Prerequisites:** Phase 14 · 33 (Rules), Phase 14 · 36 (Scope), Phase 14 · 37 (Feedback)
 **Time:** ~55 minutes
 
@@ -81,13 +81,14 @@ wb-gate-sequence
 
 ```
 python3 code/main.py
+npx tsx code/main.ts
 ```
 
 Çıktı: üç yargı raporu, her biri senaryoya yakın kaydedildi.
 
 ## Doğada üretim biçimleri
 
-Dört örnektir kapıyı "başka bir saç işi"nden "başlı kararlı kenara" yükseltir.
+Beş model kapıyı "başka bir saç işi"nden "hüküm verici kenara" yükseltir.
 
 **Defense-in-depth, not single gate.**Pre-commit hook → CI durum kontrolü → pre-tool authz hook → pre-merge gate. Her katman belirleyici olduğundan bir katmandaki bir başarısızlık bir sonraki tarafından yakalanır. microservices.io'nun Mart 2026 oyun kitabı açıkça belirtilmiştir: pre-commit hook geçilebilir değildir çünkü, bir model taraflı beceri aksine, talimatları takip eden ajanın bağımlı değildir. Verifikasyon kapısı CI / pre-merge katmandadır.
 
@@ -140,7 +141,6 @@ Kapı, çalışma masası akışının belirleyici kenarıdır.
 - [Type-Checked Compliance: Deterministic Guardrails (arXiv 2604.01483)](https://arxiv.org/pdf/2604.01483) Deterministik kapının üst sınırı olarak 4'ü eğil
 - [logi-cmd/agent-guardrails — merge gate spec](https://github.com/logi-cmd/agent-guardrails) kapsam + mutasyon testi kapıları
 - [Guardrails AI x MLflow](https://guardrailsai.com/blog/guardrails-mlflow) CI puanlayıcıları olarak belirleyici doğrulayıcılar
-- [Akira, Real-Time Guardrails for Agentic Systems](https://www.akira.ai/blog/real-time-guardrails-agentic-systems) Araç öncesi/sonra kapılar
 - Fase 14 · 27  hızlı enjeksiyon savunmaları (kapının karşılaşma çifti)
 - Fase 14 · 36  bu kapı tarafından yürürlüğe alınan kapsam sözleşmesi
 - Fase 14 · 37  geri bildirim kayıt bu kapı puanlar

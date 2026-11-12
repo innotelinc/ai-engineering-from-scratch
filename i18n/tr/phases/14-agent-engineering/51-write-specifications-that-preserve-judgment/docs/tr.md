@@ -3,7 +3,7 @@
 > Bir yararlı spesifikasyon, geri dönüşümlü uygulama seçeneklerini açık bırakırken değişkenleri ve kanıtları düzeltir.
 
 **Type:** Learn + Build
-**Languages:** Python (stdlib)
+**Languages:** Python (stdlib), TypeScript
 **Prerequisites:** Phase 14 lesson 50
 **Time:** ~75 minutes
 
@@ -74,6 +74,7 @@ Laboratuvar her sözleşme yüzeyini doğruluyor, karar biçimlerini kontrol edi
 
 ```bash
 python3 code/main.py
+npx tsx code/main.ts
 python3 -m unittest discover code/tests -v
 ```
 
@@ -90,7 +91,7 @@ python3 -m unittest discover code/tests -v
 ## Daha Fazla Okumak
 
 - [Nuseibeh and Easterbrook, Requirements Engineering: A Roadmap](https://www.cs.toronto.edu/~sme/papers/2000/ICSE2000.pdf), hedefler arasındaki ilişki, kesin özellikler, doğrulama, anlaşma ve evrim için.
-- [Zave and Jackson, Four Dark Corners of Requirements Engineering](https://doi.org/10.1145/267895.267896), çevresel varsayımları, gereklilikleri ve özellikleri ayırmak için.
+- [Zave and Jackson, Four Dark Corners of Requirements Engineering](https://doi.org/10.1145/237432.237434), çevresel varsayımları, gereklilikleri ve özellikleri ayırmak için.
 - [Gotel and Finkelstein, An Analysis of the Requirements Traceability Problem](https://doi.org/10.1109/ICRE.1994.292398), bir talebin neden var olduğunu ve nereden geldiğini korumak için.
 
 ## Neyi Saklarsın
