@@ -3,7 +3,7 @@
 > Doğru bir araç, model ne zaman kullanılacağını bilmediğinde sessizce başarısız olur. Adlandırma, açıklamalar ve parametreler şekilleri, StableToolBench ve MCPToolBench+ gibi referans değerlerinde araç seçimi doğruluğunda 10 ila 20 yüzde puan dalgalanmalara neden olur. Bu ders, bir modelin güvenilir bir şekilde seçtiği bir aracı model yanlış ateşlediği bir araçtan ayıran tasarım kurallarına isim verir.
 
 **Type:** Learn
-**Languages:** Python (stdlib, tool schema linter)
+**Languages:** Python, TypeScript (stdlib, tool schema linter)
 **Prerequisites:** Phase 13 · 01 (the tool interface), Phase 13 · 04 (structured output)
 **Time:** ~45 minutes
 
@@ -84,7 +84,7 @@ Başparmak kuralı:`action`Argument üç değerden fazlasa, araçları bölün.
 ### Parametre tasarımı
 
 - **Enum every closed set.** `units: "celsius" | "fahrenheit"`Hayır .`units: string`Enumlar, modelin kabul edilebilir değerlerin evrenini anlatır.
-- **Required vs optional.**Açık AI sıkı modunda her alanın kullanılması gerekir.`required`; bir  ekle`is_default: true`Şifreye bir kural koyun ve modelin onu atmasına izin verin.
+- **Required vs optional.**Açık AI sıkı modunda her alanın kullanılması gerekir.`required`Bu yüzden model bir tane atamaz.`null`Ve model göndersin.`null`değersiz olduğu zaman.
 - **Typed IDs.** `note_id: string`Tamam ama bir ekle `pattern`(`^note-[0-9]{8}$`Halüsinasyonlu kimlikleri yakalamak için.
 - **No overly flexible types.**Sakın `type: any`Model şekiller halüsinasyon yapar.
 - **Describe the field.** `{"type": "string", "description": "ISO 8601 date in UTC, e.g. 2026-04-22"}`- Belirtişi modelin sorgularının bir parçası.

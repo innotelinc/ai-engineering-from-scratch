@@ -3,7 +3,7 @@
 > Bir beceri, paketinin kalınlığından kurtulması, doğru isteklere göre yönlendirilmesi, ölçülen bir görevi geliştirmesi, politika içinde kalması ve başka bir ev sahibi üzerinde dürüstçe çökmesiyle sona erer.
 
 **Type:** Build
-**Languages:** Python (stdlib)
+**Languages:** Python (stdlib), TypeScript
 **Prerequisites:** Phase 13 · 22, 24, 25, and 26
 **Time:** ~150 minutes
 
@@ -137,10 +137,12 @@ Geliştirilmiş açıklamanın genelleşip-genelleşmediğini belirlemek için o
 
 İkili çağrı için:
 
-```text
-precision = true_positives / (true_positives + false_positives)
-recall = true_positives / (true_positives + false_negatives)
-f1 = 2 * precision * recall / (precision + recall)
+```math
+\begin{aligned}
+\text{precision} &= \frac{\text{true\_positives}}{\text{true\_positives} + \text{false\_positives}} \\[4pt]
+\text{recall} &= \frac{\text{true\_positives}}{\text{true\_positives} + \text{false\_negatives}} \\[4pt]
+\text{f1} &= \frac{2 \cdot \text{precision} \cdot \text{recall}}{\text{precision} + \text{recall}}
+\end{aligned}
 ```
 
 On'dan on'dan on'dan yüzü her ikisi de yüzde 100'dir ama farklı kanıtlar sunar.
@@ -423,6 +425,7 @@ Kapstone laboratuvarını çalıştır:
 cd "$(git rev-parse --show-toplevel)"
 cd phases/13-tools-and-protocols/27-skill-evals-packaging-and-portability
 python3 code/main.py
+npx tsx code/main.ts
 python3 -m unittest discover -s code/tests -v
 ```
 

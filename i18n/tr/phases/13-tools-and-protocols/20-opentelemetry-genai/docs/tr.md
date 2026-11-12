@@ -3,7 +3,7 @@
 > Bir ajan beş alet, üç MCP sunucusu ve iki alt ajanı çağırıyor. Hepsinin üzerinde bir iz gerektirir. OpenTelemetry GenAI semantik sözleşmeleri (v1.37 ve daha üstteki sabit özelliği) 2026 standardıdır, Doğal olarak Datadog, Langfuse, Arize Phoenix, OpenLLMetry ve AgentOps tarafından desteklenir. Bu ders, gerekli özellikleri isimlendirir, uzantı hiyerarşisini yürütür (astı → LLM → araç) ve herhangi bir OTel ihracatçısına bağlayabileceğiniz stdlib uzantı emiten bir cihaz gönderir.
 
 **Type:** Build
-**Languages:** Python (stdlib, OTel span emitter)
+**Languages:** Python (stdlib, OTel span emitter), TypeScript
 **Prerequisites:** Phase 13 · 07 (MCP server), Phase 13 · 08 (MCP client)
 **Time:** ~75 minutes
 
@@ -150,7 +150,7 @@ Bu ders bize çok yararlı .`outputs/skill-otel-genai-instrumentation.md`- Bir a
 | Span | "Timed operation" | A unit of work with a start, end, and attributes |
 | Trace | "Cross-span ancestry" | Tree of spans sharing a trace id |
 | SpanKind | "CLIENT / SERVER / INTERNAL" | Hints about span direction |
-| OTLP | "OpenTelemetry Line Protocol" | Wire format for exporters |
+| OTLP | "OpenTelemetry Protocol" | Wire format for exporters |
 | Opt-in content | "Prompt / completion capture" | Off by default; env var to enable |
 | traceparent | "W3C header" | Propagates trace context across services |
 | Exporter | "Backend-specific shipper" | Component that sends spans to Jaeger / Datadog / etc. |
