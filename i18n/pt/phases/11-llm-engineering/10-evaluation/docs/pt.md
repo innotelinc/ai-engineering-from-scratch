@@ -3,7 +3,7 @@
 > Nunca implementaria um aplicativo web sem testes. Nunca enviarias uma migração de banco de dados sem um plano de retrocesso. Mas agora, a maioria das equipes envia os pedidos de LLM lendo 10 resultados e dizendo "Sim, parece bom". Isso não é avaliação. Essa é a esperança. A esperança não é uma prática de engenharia. Cada mudança imediata, cada troca de modelo, cada ajuste de temperatura altera a distribuição de saída de maneiras que não podem prever lendo um punhado de exemplos. A avaliação é a única coisa que se interpõe entre a sua aplicação e a degradação silenciosa.
 
 **Type:** Build
-**Languages:** Python
+**Languages:** Python, TypeScript
 **Prerequisites:** Phase 11 Lesson 01 (Prompt Engineering), Lesson 09 (Function Calling)
 **Time:** ~45 minutes
 **Related:**A fase 5 · 27 (Evaluation  RAGAS, DeepEval, G-Eval) abrange os conceitos de nível de quadro (fielitude baseada em NLI, calibração de juiz, o RAG quatro). A fase 5 · 28 (Evaluation de longo contexto) abrange NIAH / RULER / LongBench / MRCR para regressão de longo contexto. Esta lição se concentra no que é específico da engenharia LLM: integração CI / CD, execução de avaliação de custo, painéis de regressão.
@@ -856,7 +856,7 @@ Também produz `outputs/skill-eval-patterns.md`-- um quadro de decisão para esc
 - [DeepEval Documentation](https://docs.confident-ai.com)-- Python-native eval framework com 14+ métricas, integração Pytest, e detecção de alucinações
 - [Braintrust Eval Guide](https://www.braintrust.dev/docs)-- plataforma de avaliação de produção com rastreamento de experiências, funções de pontuação e gestão de conjuntos de dados
 - [Ribeiro et al., 2020 -- "Beyond Accuracy: Behavioral Testing of NLP Models with CheckList"](https://arxiv.org/abs/2005.04118)-- metodologia sistemática de teste comportamental (funcionalidade mínima, invariância, expectativas direccionais) aplicável à avaliação do MLL
-- [LMSYS Chatbot Arena](https://chat.lmsys.org)-- plataforma de avaliação humana ao vivo, onde os utilizadores votam sobre os resultados dos modelos, o maior conjunto de dados de comparação em pares para os LLM
+- [Arena (formerly LMSYS Chatbot Arena)](https://arena.ai/)-- plataforma de avaliação humana ao vivo, onde os utilizadores votam sobre os resultados dos modelos, o maior conjunto de dados de comparação em pares para os LLM
 - [Es et al., "RAGAS: Automated Evaluation of Retrieval Augmented Generation" (EACL 2024 demo)](https://arxiv.org/abs/2309.15217)- métricas de referência para o RAG (filidade, relevância das respostas, precisão do contexto/recall); o padrão de avaliação que se escala para prod sem etiquetadores.
 - [Liu et al., "G-Eval: NLG Evaluation using GPT-4 with Better Human Alignment" (EMNLP 2023)](https://arxiv.org/abs/2303.16634)-- cadeia de pensamento + preenchimento de formulários como um protocolo de juiz; a calibração e os resultados de preconceito de cada juiz-construtor precisa.
 - [Hugging Face LLM Evaluation Guidebook](https://huggingface.co/spaces/OpenEvals/evaluation-guidebook)- aconselhamento prático sobre a contaminação dos dados, a selecção métrica e a reprodutividade da equipa que mantém o quadro de avaliação do LLM aberto.
