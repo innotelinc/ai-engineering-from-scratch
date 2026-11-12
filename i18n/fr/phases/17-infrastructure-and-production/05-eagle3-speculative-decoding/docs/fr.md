@@ -3,7 +3,7 @@
 > Le décoding spéculatif associe un modèle rapide à celui cible. Le projet propose des jetons K; l'objectif est vérifié en un seul forward; les jetons acceptés sont gratuits. En 2026, EAGLE-3 est la variante de la classe de production  il entraîne un chef de projet sur les états cachés du modèle cible plutôt que sur les jetons bruts, poussant le taux d'acceptation alpha dans la bande de 0,6-0,8 sur le chat général. La bonne question n'est pas "combien rapide est le projet" mais "qu'est-ce que l'alpha sur mon trafic?" Si l'alpha tombe en dessous de ~0.55, le décoding spéculatif est négatif net à haute simultanéité parce que chaque projet rejeté coûte un deuxième passe cible. Cette leçon vous apprend à mesurer l'alpha d'abord et à tourner le drapeau en second.
 
 **Type:** Learn
-**Languages:** Python (stdlib, toy acceptance-rate simulator)
+**Languages:** Python, TypeScript (stdlib, toy acceptance-rate simulator)
 **Prerequisites:** Phase 17 · 04 (Serving Engine Internals), Phase 10 · 18 (Multi-Token Prediction)
 **Time:** ~60 minutes
 
@@ -16,7 +16,7 @@
 
 ## Le problème
 
-Le décodeur est lié à la mémoire. Sur un H100 exécutant Llama 3.3 70B FP8, chaque jeton décodé lit ~ 140 Go / s de poids et émet un jeton. Le calcul de la GPU est presque inactif pendant le décode.
+Le décodeur est lié à la mémoire. Sur un H100 exécutant Llama 3.3 70B FP8, chaque étape de décodeur lit tous les ~ 70 Go de poids de HBM et émet un jeton par séquence.
 
 Le décoding spéculatif exploite le fossé. Générez des jetons candidats K avec un modèle de projet bon marché, puis demandez au modèle cible de vérifier tous les K dans un seul passe à l'avant. Chaque jeton vérifié est effectivement gratuit (amortisé dans un lot de K à l'avant que la cible aurait dû faire de toute façon).
 
@@ -34,7 +34,7 @@ Sans décode spécifique, le coût par jeton est un cible à l'avant.`1 + K * al
 
 Les jetons rejetés ne disparaissent pas  ils forcent une deuxième cible à la première jeton rejetée. Pour une charge de travail où l'alpha tombe à 0,4, vous payez des frais généraux de projet plus de vérification plus de ré-roll. À haute simultanéité (disons 256 simultanément), le lot de décode est déjà assez grand pour que l'écart entre "target seul" et "target avec vérifier" diminue. En dessous de l'alpha 0.55 sur la plupart des appareils de 2026, le décode des spécifications est négatif net.
 
-Alpha varie selon la charge de travail. Sur le chat général de style ShareGPT, EAGLE-3 formé sur ShareGPT atteint 0,6-0,8. Sur le trafic spécifique au domaine (code, médical, juridique) le chef de projet formé sur les données générales tombe à 0,4-0,6.
+Alpha varie selon la charge de travail. Sur le chat général de style ShareGPT, EAGLE-3 entraîné sur ShareGPT atteint 0,6-0,8. En ce qui concerne le trafic spécifique au domaine (code, médical, juridique), le chef de projet formé aux données générales tombe à 0,4-0,6. La formation d'un chef de projet spécifique au domaine récupère alpha  c'est un travail de formation léger et rapide par rapport à la finition cible. Les valeurs de la phase 7 · 16 et de la phase 10 · 15 sont plus élevées (0,85 et plus). Ce sont des taux par jeton sur les points de référence de chat qui correspondent aux données de formation du projet. Planifiez avec les bandes de cette page et mesurez alpha sur votre propre trafic.
 
 ### Des générations d'AIGLE à un coup d'œil
 
@@ -57,7 +57,7 @@ La moyenne ITL diminue avec le décode spécifique. P99 peut empirer si vous ne 
 
 ### Lorsque l'Eagle-3 est déjà déployé
 
-Google a déployé le décoding spéculatif dans AI Overviews en 2025 (même qualité, réponse plus rapide). vLLM V1 vaisseaux `speculative_config`comme l'interface documentée; le décoding spéculatif GPU N-gramme dans V1 est la variante compatible avec le pré-remplissage en morceaux. SGLang prend en charge EAGLE-3 comme le chemin de projet recommandé pour les charges de travail lourdes de préfixes.
+Google a déployé le décoding spéculatif dans AI Overviews en 2025 (même qualité, réponse plus rapide). vLLM V1 vaisseaux `speculative_config`SGLang prend en charge EAGLE-3 comme voie de projet recommandée pour les charges de travail lourdes.
 
 ### - Je ne peux pas faire de calcul.
 
@@ -68,7 +68,7 @@ Accélération attendue: `S(alpha, K) = (1 + K*alpha) / (1 + verify_overhead)`- 
 - Génération hors ligne de série 1, où la latence n'a pas d'importance.
 - Les résultats sont très courts (moins de 50 jetons).
 - Des domaines spécialisés sans chef de projet.
-- vLLM v0.18.0 plus le décode des spécifications du modèle de projet plus `--enable-chunked-prefill`Cette combinaison ne se compile pas. L'exception documentée est le décode de spécifications de la GPU N-gramme dans V1.
+- Assumant que chaque paire de fonctionnalités est composée. Vérifiez la matrice de compatibilité vLLM pour votre version: v0.18.0 marque le décoding spéculatif compatible avec le pré-remplissage en morceaux.
 
 ```figure
 mx-speculative-tree
@@ -86,7 +86,7 @@ Cette leçon produit `outputs/skill-eagle3-rollout.md`. Compte tenu d'un modèle
 
 1. On court .`code/main.py`À K=5, quelle alpha vous faut pour une accélération de 2x ? Pour une accélération de 3x ?
 2. Imaginez que le trafic de production divise 70% le chat général, 30% le code. Le chat général atteint alpha 0.7 avec EAGLE-3 formé sur ShareGPT; le code atteint alpha 0.4.
-3. Lisez le VLLM `speculative_config`Nommer les trois modes (modèle de projet, EAGLE, N-gramme) et lequel est compatible avec le pré-remplissage en morceaux.
+3. Lisez le VLLM `speculative_config`Nommer les trois modes (modèle de projet, EAGLE, N-gramme) et vérifier les caractéristiques de chacun composé dans votre version vLLM.
 4. Vous voyez une baisse moyenne de l'ITL de 25% après avoir activé EAGLE-3 mais P99 ITL a augmenté de 15%.
 5. Comptez le coût de mémoire de la tête de projet EAGLE-3 pour Llama 3.3 70B. Comment se compare-t-il à l'exécution de Llama 3.2 1B comme un projet classique?
 

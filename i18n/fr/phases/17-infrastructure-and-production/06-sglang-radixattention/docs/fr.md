@@ -3,7 +3,7 @@
 > Traitez le cache KV comme une ressource réutilisable de première classe stockée dans un arbre radix et modifiez le calendrier avec lui: au lieu de FCFS (first-come, first-served) comme des horaires vLLM, un planificateur conscient du cache priorise les demandes avec des préfixes partagés plus longs  efficacement un traversage de radix de profondeur pour que les branches chaudes restent résidentes dans HBM. SGLang est le moteur qui a construit en fonction de cette idée. Sur Llama 3.1 8B avec des requêtes 1K similaires à ShareGPT, SGLang atteint ~ 16.200 tok/s à ~ 12.500 de vLLM, un avantage de ~ 29%. Sur les charges de travail RAG lourdes avec préfixe, l'avantage atteint 6,4x. Sur les charges de travail en forme de clonage vocale, le taux de clics a été supprimé de 86%. Déployé sur plus de 400 000 GPU en 2026 sur xAI, LinkedIn, Cursor, Oracle, GCP, Azure, AWS. Le problème est que le nombre 6.4x s'évapore lorsque le préfixe de commande est incohérent.
 
 **Type:** Learn
-**Languages:** Python (stdlib, toy radix-tree cache + cache-aware scheduler)
+**Languages:** Python, TypeScript (stdlib, toy radix-tree cache + cache-aware scheduler)
 **Prerequisites:** Phase 17 · 04 (Serving Engine Internals), Phase 14 (Agentic RAG)
 **Time:** ~75 minutes
 
@@ -94,6 +94,8 @@ roofline
 
 `code/main.py`Il implémentera un cache KV de jouet radix-tree plus un planificateur avec deux politiques: FCFS et cache-conscient. Il exécute la même charge de travail à travers les deux, rapporte le taux de cache préfixe et le delta de débit. Puis il exécute une charge de travail "scrambled ordering" pour montrer l'effondrement de 6,4x.
 
+Le [Inside an LLM Serving GPU](https://aiengineeringfromscratch.com/inside-an-llm-serving-gpu?workload=shared&shared=4096)La machine montre le cache radix sur une vraie L4 run. Quatre groupes ont chacun leur propre prompt système de 4.096 jetons. La première demande d'un groupe calcule son prompt. Alors que ce prompt reste dans le cache, les demandes ultérieures du groupe ne calculent que la question de 128 jetons.
+
 ## La faire partir
 
 Cette leçon produit `outputs/skill-radix-scheduler-advisor.md`. Compte tenu de la description de la charge de travail (forme de modèle de demande, modèle de récupération, nombre de locataires concurrents), il produit une ordonnance de demande de demande et une recommandation de mise en œuvre de la SGLang.
@@ -125,4 +127,4 @@ Cette leçon produit `outputs/skill-radix-scheduler-advisor.md`. Compte tenu de 
 - [SGLang documentation](https://sgl-project.github.io/) RadixAttention et détails de planification.
 - [SGLang paper — Efficiently Programming Large Language Models (arXiv:2312.07104)](https://arxiv.org/abs/2312.07104) la référence de conception.
 - [LMSYS blog — SGLang with RadixAttention](https://www.lmsys.org/blog/2024-01-17-sglang/) numéros de référence et raison de l'agrément.
-- [vLLM — Prefix Caching](https://docs.vllm.ai/en/latest/features/prefix_caching.html) mise en œuvre de la même façon que la radix de vLLM, pour comparaison.
+- [vLLM — Prefix Caching](https://docs.vllm.ai/en/latest/features/automatic_prefix_caching/) mise en œuvre de la même façon que la radix de vLLM, pour comparaison.
