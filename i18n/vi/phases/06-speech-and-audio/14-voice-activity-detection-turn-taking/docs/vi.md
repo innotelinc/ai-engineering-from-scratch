@@ -3,7 +3,7 @@
 > Mỗi đại lý giọng nói sống hoặc chết dựa trên hai quyết định: người dùng đang nói và họ đã hoàn thành chưa? VAD trả lời câu đầu tiên. Khám phá quay (VAD + âm thầm-hành động + mô hình điểm cuối ngữ nghĩa) trả lời câu thứ hai.
 
 **Type:** Build
-**Languages:** Python
+**Languages:** Python, TypeScript
 **Prerequisites:** Phase 6 · 11 (Real-Time Audio), Phase 6 · 12 (Voice Assistant)
 **Time:** ~45 minutes
 
@@ -170,7 +170,7 @@ Cứ như `outputs/skill-vad-tuner.md`Chọn mô hình VAD, ngưỡng, ngứa, c
 ## Đọc thêm
 
 - [Silero VAD](https://github.com/snakers4/silero-vad) VAD mở tham chiếu.
-- [Picovoice Cobra VAD](https://picovoice.ai/products/cobra/) nhà lãnh đạo chính xác thương mại.
+- [Picovoice Cobra VAD](https://picovoice.ai/products/voice/voice-activity-detection/) nhà lãnh đạo chính xác thương mại.
 - [Kyutai — Unmute + flush trick](https://kyutai.org/stt) thủ thuật kỹ thuật sub-200 ms.
 - [LiveKit — turn detection](https://docs.livekit.io/agents/logic/turns/) chỉ ra kết thúc ngữ nghĩa trong sản xuất.
 - [WebRTC VAD](https://webrtc.googlesource.com/src/) dòng cơ sở thừa kế.

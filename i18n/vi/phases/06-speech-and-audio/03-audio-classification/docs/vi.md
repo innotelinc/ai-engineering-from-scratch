@@ -3,7 +3,7 @@
 > Mọi thứ từ "dog barking vs siren" đến "thế ngữ này là gì" là phân loại âm thanh. Các tính năng là melt. Kiến trúc di chuyển mỗi thập kỷ. Thử nghiệm vẫn là AUC, F1, và nhớ mỗi lớp.
 
 **Type:** Build
-**Languages:** Python
+**Languages:** Python, TypeScript
 **Prerequisites:** Phase 6 · 02 (Spectrograms & Mel), Phase 3 · 06 (CNNs), Phase 5 · 08 (CNNs & RNNs for Text)
 **Time:** ~75 minutes
 
@@ -119,7 +119,7 @@ class AudioCNN(nn.Module):
 
 Các thông số 3M. Các tàu trong ~ 10 phút trên ESC-50 với một RTX 4090. 80% + độ chính xác.
 
-### Bước 5: các 2026 mặc định  tinh chỉnh BEAT
+### Bước 5: chỉnh sửa một bộ biến đổi âm thanh được đào tạo trước (AST được hiển thị)
 
 ```python
 from transformers import ASTFeatureExtractor, ASTForAudioClassification
@@ -135,7 +135,7 @@ inputs = ext(audio, sampling_rate=16000, return_tensors="pt")
 logits = model(**inputs).logits
 ```
 
-Đối với BEAT, sử dụng `microsoft/BEATs-base`qua `beats`thư viện; API biến đổi là cùng một hình dạng.
+Ví dụ chỉnh sửa AST từ Hub. BEATs, mặc định 2026, không có trên Hugging Face Hub: tải xuống một điểm kiểm soát từ [BEATs release in microsoft/unilm](https://github.com/microsoft/unilm/tree/master/beats)và tải nó với repo đó `BEATs`và `BEATsConfig`lớp; vòng tròn điều chỉnh tinh tế giữ hình dạng tương tự.
 
 ## Sử dụng nó
 
