@@ -3,7 +3,7 @@
 > La 3D est la modalité où le levier 2D à 3D est le plus fort. La percée de 2023 a été 3D Gaussian Splating. La couche de poussée générative 2024-2026 diffusion multi-vue + reconstruction 3D en haut pour produire des objets et des scènes à partir d'un seul prompt ou photo.
 
 **Type:** Learn
-**Languages:** Python
+**Languages:** Python, TypeScript
 **Prerequisites:** Phase 4 (Vision), Phase 8 · 07 (Latent Diffusion)
 **Time:** ~45 minutes
 
@@ -164,4 +164,4 @@ Pour la plupart des produits 2026 la bonne réponse est "exécuter un modèle de
 - [Shi et al. (2023). MVDream](https://arxiv.org/abs/2308.16512) Diffusion multi-vue.
 - [Hong et al. (2023). LRM: Large Reconstruction Model for Single Image to 3D](https://arxiv.org/abs/2311.04400) LRM.
 - [Gao et al. (2024). CAT3D: Create Anything in 3D with Multi-View Diffusion Models](https://arxiv.org/abs/2405.10314)- C'est une catastrophe.
-- [Stability AI (2024). Stable Video 3D (SV3D)](https://stability.ai/research/sv3d)- Le SV3D.
+- [Stability AI (2024). Stable Video 3D (SV3D)](https://stability.ai/research/sv3d-novel-multi-view-synthesis-and-3d-generation-from-a-single-image-using-latent-video-diffusion)- Le SV3D.
