@@ -3,7 +3,7 @@
 > RSP v3.0 đã có hiệu lực vào ngày 24 tháng 2 năm 2026, thay thế chính sách năm 2023. Lượng giảm thiểu hai cấp: những gì Anthropic sẽ làm một bên so với những gì được hình thành như một khuyến nghị toàn ngành (bao gồm cả các tiêu chuẩn bảo mật RAND SL-4). Thêm lộ trình an toàn biên giới và báo cáo rủi ro như các tài liệu thường xuyên thay vì các tài liệu giao hàng một lần. Thả lời hứa nghỉ ngơi năm 2023. Giới thiệu ngưỡng R&D-4 AI: một khi vượt qua, Anthropic phải xuất bản một trường hợp xác nhận xác định rủi ro và giảm thiểu sự không phù hợp. Claude Opus 4.6 không vượt qua nó. Anthropic tuyên bố trong v3.0 thông báo rằng "để loại trừ điều này trở nên khó khăn". SaferAI xếp hạng RSP 2023 ở mức 2.2; họ hạ cấp v3.0 xuống còn 1.9, đưa Anthropic vào danh mục RSP "thô yếu" cùng với OpenAI và DeepMind. Các ngưỡng chất lượng thay thế các cam kết định lượng năm 2023; việc loại bỏ điều khoản tạm dừng là sự lùi mạnh nhất.
 
 **Type:** Learn
-**Languages:** Python (stdlib, RSP threshold decision engine)
+**Languages:** Python (stdlib, RSP threshold decision engine), TypeScript
 **Prerequisites:** Phase 15 · 06 (AAR), Phase 15 · 07 (RSI)
 **Time:** ~45 minutes
 
@@ -100,6 +100,6 @@ a5-rsp-ladder
 
 - [Anthropic — Responsible Scaling Policy v3.0](https://anthropic.com/responsible-scaling-policy/rsp-v3-0) Chính sách đầy đủ 32 trang.
 - [Anthropic — RSP v3.0 announcement](https://www.anthropic.com/news/responsible-scaling-policy-v3) tổng kết các thay đổi từ v2.
-- [Anthropic — Frontier Safety Roadmap](https://www.anthropic.com/research/frontier-safety) Tài liệu thường trực liên kết từ RSP v3.0.
-- [Anthropic — Risk Report: Claude Opus 4.6](https://www.anthropic.com/research/risk-report-claude-opus-4-6) Nhìn lại về mô hình biên giới hiện tại.
+- [Anthropic — Frontier Safety Roadmap](https://www.anthropic.com/responsible-scaling-policy/roadmap) Tài liệu thường trực liên kết từ RSP v3.0.
+- [Anthropic — Risk Report: February 2026](https://www.anthropic.com/feb-2026-risk-report) Nhìn lại về Claude Opus 4.6, mô hình biên giới khi nó được xuất bản.
 - [Anthropic — Measuring agent autonomy in practice](https://www.anthropic.com/research/measuring-agent-autonomy) kết nối AI R&D-4 với tự trị được đo lường.
