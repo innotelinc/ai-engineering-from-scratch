@@ -3,7 +3,7 @@
 > "t liên quan đến h" có nghĩa là một đọc của con người t sẽ kết luận h là đúng. NLI là nhiệm vụ dự đoán liên quan / mâu thuẫn / trung lập.
 
 **Type:** Learn
-**Languages:** Python
+**Languages:** Python, TypeScript
 **Prerequisites:** Phase 5 · 05 (Sentiment Analysis), Phase 5 · 13 (Question Answering)
 **Time:** ~60 minutes
 
@@ -71,7 +71,7 @@ print(result)
 #  {'label': 'contradiction', 'score': 0.01}]
 ```
 
-Đối với NLI sản xuất, `facebook/bart-large-mnli`và `microsoft/deberta-v3-large-mnli`DeBERTa-v3 đứng đầu bảng xếp hạng.
+Đối với NLI sản xuất, `facebook/bart-large-mnli`và `MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli`DeBERTa-v3 đứng đầu bảng xếp hạng.
 
 ### Bước 2: Đánh phân loại không bắn
 
@@ -118,7 +118,7 @@ Số 2026:
 
 | Use case | Model |
 |---------|-------|
-| General-purpose NLI | `microsoft/deberta-v3-large-mnli` |
+| General-purpose NLI | `MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli` |
 | Fast / edge | `cross-encoder/nli-deberta-v3-base` |
 | Zero-shot classification (lightweight) | `facebook/bart-large-mnli` |
 | Document-level NLI | `MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli` |
